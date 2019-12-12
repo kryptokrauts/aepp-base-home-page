@@ -1,3 +1,5 @@
+/* eslint-disable import/no-duplicates */
+
 declare module 'aepp-base/src/store/plugins/persistState' {
   import { Store } from 'vuex';
 

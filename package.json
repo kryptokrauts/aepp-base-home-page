@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "NODE_ENV=production vue-cli-service lint --no-fix",
+    "test": "npm run lint"
   },
   "dependencies": {
     "@aeternity/aepp-sdk": "^6.1.3",
