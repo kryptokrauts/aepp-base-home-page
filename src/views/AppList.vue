@@ -12,8 +12,7 @@
         :key="`list-item-aeternity-app-${idx}`"
         :title="app.name"
         :subtitle="app.path"
-        :to="getLink(app.path)"
-        @click="getClickHandler(app.path)"
+        :to="`/${app.path}`"
       >
         <img
           v-if="app.icon"
@@ -21,6 +20,7 @@
           :src="app.icon"
           :alt="app.name"
         >
+        <LeftMore slot="right" />
       </ListItem>
     </AeCard>
 
@@ -32,8 +32,8 @@
           v-for="(app, idx) in bookmarkedApps"
           :key="`app-shortcut-aeternity-app-${idx}`"
           v-bind="app"
-          :to="getLink(app.path)"
-          @click="getClickHandler(app.path)"
+          :to="app.url"
+          @click="app.navigateTo"
         />
       </div>
     </template>
@@ -42,54 +42,23 @@
 
 <script>
 import { mapState } from 'vuex';
-import RpcClient from '@aeternity/aepp-sdk/es/rpc/client';
-import { PROTOCOL_DEFAULT } from 'aepp-base/src/lib/constants';
 import { aeternityAppsPaths } from 'aepp-base/src/lib/appsRegistry';
 import MobilePage from 'aepp-base/src/components/mobile/Page.vue';
 import Guide from 'aepp-base/src/components/Guide.vue';
-import AppShortcut from 'aepp-base/src/components/AppShortcut.vue';
 import AeCard from 'aepp-base/src/components/AeCard.vue';
 import ListItem from 'aepp-base/src/components/ListItem.vue';
-
-const pathsToMetadata = (paths, getters) => paths.map(path => ({
-  ...getters['appsMetadata/get'](path),
-  path,
-}));
+import { LeftMore } from 'aepp-base/src/components/icons';
+import AppShortcut from 'aepp-base/src/components/AppShortcut.vue';
 
 export default {
   components: {
-    MobilePage,
-    Guide,
-    AppShortcut,
-    AeCard,
-    ListItem,
+    MobilePage, Guide, AeCard, ListItem, LeftMore, AppShortcut,
   },
-  data: () => ({
-    PROTOCOL_DEFAULT,
-    wallet: null,
-    bookmarkedAppsPaths: [],
-  }),
   computed: mapState({
-    aeternityApps: (state, getters) => pathsToMetadata(aeternityAppsPaths, getters),
-    bookmarkedApps(state, getters) {
-      return pathsToMetadata(this.bookmarkedAppsPaths, getters);
-    },
+    aeternityApps: (state, { pathToApp }) => aeternityAppsPaths.map(p => pathToApp(p)),
+    bookmarkedApps: ({ bookmarkedAppsPaths }, { pathToApp }) => bookmarkedAppsPaths
+      .map(p => pathToApp(p)),
   }),
-  async mounted() {
-    this.wallet = await RpcClient.compose({
-      deepConfiguration: { Ae: { methods: ['navigate', 'bookmarkedApps', 'languageCode'] } },
-    })();
-    this.$store.commit('languages/setActiveCode', await this.wallet.languageCode());
-    this.bookmarkedAppsPaths = await this.wallet.bookmarkedApps();
-  },
-  methods: {
-    getClickHandler(path) {
-      return this.wallet ? this.wallet.navigate(path) : undefined;
-    },
-    getLink(path) {
-      return this.wallet ? undefined : `${PROTOCOL_DEFAULT}//${path}`;
-    },
-  },
 };
 </script>
 

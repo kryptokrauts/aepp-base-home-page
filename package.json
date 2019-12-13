@@ -11,7 +11,7 @@
   "dependencies": {
     "@aeternity/aepp-sdk": "^6.1.3",
     "@types/lodash-es": "^4.17.3",
-    "aepp-base": "github:aeternity/aepp-base#03c7bf330d12bafb975e2ff4e9962e5681c3843c",
+    "aepp-base": "github:aeternity/aepp-base#19cbbdd2fd32286118b5d9166caf85b93f92c051",
     "core-js": "^3.4.3",
     "focus-visible": "^5.0.2",
     "lodash-es": "^4.17.15",

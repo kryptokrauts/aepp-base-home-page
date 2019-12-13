@@ -1,5 +1,6 @@
 import 'normalize.css';
 import 'focus-visible';
+import 'aepp-base/src/components/icon.scss';
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import { i18n } from 'aepp-base/src/store/plugins/ui/languages';
@@ -21,3 +22,5 @@ new Vue({
 if (process.env.NODE_ENV === 'development') {
   window.store = store;
 }
+
+store.dispatch('init');

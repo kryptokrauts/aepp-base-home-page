@@ -22,3 +22,7 @@ declare module 'aepp-base/src/store/plugins/ui/languages' {
 
   export default function (store: Store<any>): void;
 }
+
+declare module 'aepp-base/src/lib/constants' {
+  export const PROTOCOL_DEFAULT: string;
+}
