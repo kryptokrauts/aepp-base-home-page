@@ -75,6 +75,13 @@ export default {
       return pathsToMetadata(this.bookmarkedAppsPaths, getters);
     },
   }),
+  async mounted() {
+    this.wallet = await RpcClient.compose({
+      deepConfiguration: { Ae: { methods: ['navigate', 'bookmarkedApps', 'languageCode'] } },
+    })();
+    this.$store.commit('languages/setActiveCode', await this.wallet.languageCode());
+    this.bookmarkedAppsPaths = await this.wallet.bookmarkedApps();
+  },
   methods: {
     getClickHandler(path) {
       return this.wallet ? this.wallet.navigate(path) : undefined;
@@ -82,13 +89,6 @@ export default {
     getLink(path) {
       return this.wallet ? undefined : `${PROTOCOL_DEFAULT}//${path}`;
     },
-  },
-  async mounted() {
-    this.wallet = await RpcClient.compose({
-      deepConfiguration: { Ae: { methods: ['navigate', 'bookmarkedApps', 'languageCode'] } },
-    })();
-    this.$store.commit('languages/setActiveCode', await this.wallet.languageCode());
-    this.bookmarkedAppsPaths = await this.wallet.bookmarkedApps();
   },
 };
 </script>
