@@ -1,6 +1,6 @@
 <template>
   <MobilePage
-    class="apps"
+    class="app-list"
     fill="neutral"
     hide-tab-bar
   >
@@ -96,7 +96,7 @@ export default {
 <style lang="scss" scoped>
 @import '~aepp-base/src/styles/functions';
 
-.apps {
+.app-list {
   .ae-card {
     margin-bottom: rem(24px);
   }

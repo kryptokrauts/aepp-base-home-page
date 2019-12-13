@@ -1,13 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Apps from '../views/Apps.vue';
+import AppList from '../views/AppList.vue';
 
 Vue.use(VueRouter);
 
 const routes = [{
   path: '/',
-  name: 'apps',
-  component: Apps,
+  name: 'app-list',
+  component: AppList,
 }];
 
 const router = new VueRouter({
