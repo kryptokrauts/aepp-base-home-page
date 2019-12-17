@@ -5,6 +5,7 @@ cache:
     - node_modules
 install:
   - npm install
+env: VUE_APP_GITHUB_PAGES=true
 before_deploy:
   - npm run build -- --report
 deploy:
