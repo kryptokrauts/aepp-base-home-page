@@ -42,13 +42,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import { aeternityAppsPaths } from 'aepp-base/src/lib/appsRegistry';
 import MobilePage from 'aepp-base/src/components/mobile/Page.vue';
 import Guide from 'aepp-base/src/components/Guide.vue';
 import AeCard from 'aepp-base/src/components/AeCard.vue';
 import ListItem from 'aepp-base/src/components/ListItem.vue';
 import { LeftMore } from 'aepp-base/src/components/icons';
 import AppShortcut from 'aepp-base/src/components/AppShortcut.vue';
+import aeternityAppsPaths from '../../public/apps.json';
 
 export default {
   components: {
