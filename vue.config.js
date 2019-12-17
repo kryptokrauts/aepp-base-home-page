@@ -1,7 +1,6 @@
 const path = require('path');
 
 module.exports = {
-  publicPath: process.env.CI ? '/aepp-base-home-page/' : '/',
   chainWebpack: config => config
     .module.rule('svg')
     .uses.clear().end()
